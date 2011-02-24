@@ -1,0 +1,1 @@
+<h1>Delete flow</h1><?php echo html::entities($flow->title) ?> deleted
