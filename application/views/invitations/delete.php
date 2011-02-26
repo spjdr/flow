@@ -1,0 +1,1 @@
+<?php echo form::open(NULL, array('id' => 'add_tags')) ?><h1><?php echo __('Delete tag') ?> <?php echo html::entities($tag->title) ?></h1><?php echo form::button('delete', __('Delete'), array('type' => 'submit')) ?><?php echo form::close() ?>

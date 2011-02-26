@@ -1,0 +1,1 @@
+<?php defined('SYSPATH') or die('No direct script access.');class Model_Flow_User extends ORM { 	 	// Relationships	protected $_belongs_to = array(		'user' => array(),		'flow' 	  => array()	);		protected $_table_name = 'flows_users';	}
