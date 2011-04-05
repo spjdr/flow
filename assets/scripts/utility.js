@@ -1,0 +1,1 @@
+// form utility functionsfunction cleanURI(str){	return str.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-zA-Z-0-9]+/g,'');}

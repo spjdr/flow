@@ -1,0 +1,1 @@
+<?php defined('SYSPATH') or die('No direct script access.');/** * formerror helper class. */class Helper_Time {	public static function date2timestamp($date)	{			$time = date_parse_from_format('j/n/Y',$date);		return mktime(0,0,0,$time['month'],$time['day'],$time['year']);	}}

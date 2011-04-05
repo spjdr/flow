@@ -1,0 +1,1 @@
+<?php defined('SYSPATH') or die('No direct access allowed.');return array(	'durations' => array(		30 		=> '30 minutes',		60		=> '1 hour',		90		=> '1&frac12; hours',		120		=> '2 hours',		150 	=> '2&frac12; hours',		180 	=> '3 hours',		210		=> '3&frac12; hours',		240		=> '4 hours',		'-1'	=> 'all day'	));

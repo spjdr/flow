@@ -1,1 +1,1 @@
-<h1>Delete flow</h1><?php echo html::entities($flow->title) ?> deleted
+<?php echo form::open(NULL, array('id' => 'delete_flow')) ?><h1><?php echo __('Delete flow ') ?> <?php echo html::entities($flow->title) ?></h1><?php echo form::button('delete', __('Delete'), array('type' => 'submit')) ?><?php echo form::close() ?>

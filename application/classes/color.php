@@ -1,0 +1,1 @@
+<?php defined('SYSPATH') or die('No direct script access.');/** * formerror helper class. */class Color extends Helper_Color {}

@@ -1,0 +1,1 @@
+<?php defined('SYSPATH') or die('No direct script access.');/** * formerror helper class. */class Time extends Helper_Time {}

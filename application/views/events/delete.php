@@ -1,0 +1,1 @@
+<?php echo form::open(NULL, array('id' => 'delete_event')) ?><h1><?php echo __('Delete event ') ?> <?php echo html::entities($event->title) ?></h1><?php echo form::button('delete', __('Delete'), array('type' => 'submit')) ?><?php echo form::close() ?>
