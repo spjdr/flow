@@ -1,0 +1,1 @@
+<?php echo html::anchor(Route::get('flow-item')->uri(array('flow'=>$flow->uri,'item'=>$tag->id,'action'=>'edit')),__('Edit tag')) ?><?php echo html::anchor(Route::get('flow-item')->uri(array('flow'=>$flow->uri,'item'=>$tag->id,'action'=>'delete')),__('Delete tag')) ?><h2><?php echo $tag->title ?></h2>EVENTS
