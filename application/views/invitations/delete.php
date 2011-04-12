@@ -1,1 +1,1 @@
-<?php echo form::open(NULL, array('id' => 'add_tags')) ?><h1><?php echo __('Delete tag') ?> <?php echo html::entities($tag->title) ?></h1><?php echo form::button('delete', __('Delete'), array('type' => 'submit')) ?><?php echo form::close() ?>
+<p><?php echo __('Delete invitation sent to ') ?> <?php echo html::entities($invitation->email) ?></p><?php echo form::open(NULL, array('id' => 'delete_invitation')) ?><?php echo form::submit('delete', __('Delete')) ?><?php echo form::close() ?>

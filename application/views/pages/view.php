@@ -1,0 +1,1 @@
+<div class="page markdowned"><?php echo $body ?></div>

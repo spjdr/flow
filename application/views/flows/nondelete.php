@@ -1,0 +1,1 @@
+<p><?php echo __('You cannot delete the flow ') ?> <?php echo html::anchor($flow->uri,html::entities($flow->title)) ?>, <?php echo __('because other users are linked to this flow.') ?> <?php echo __('You must arrange for all other users to leave the flow, before trying to delete it.') ?></p>

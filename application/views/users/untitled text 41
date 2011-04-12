@@ -1,0 +1,1 @@
+<?php echo $flow_user->master ? __('flow master') : __('flow user') ?><?php foreach ($streams as $stream): ?><? endforeach; ?>

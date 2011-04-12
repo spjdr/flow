@@ -1,1 +1,1 @@
-<?php echo form::open(NULL, array('id' => 'logout')) ?><h1 class="top"><?php echo __('Log Out') ?></h1><p><?php echo __('Are you sure you want to log out?') ?></p><?php echo form::button('logout', __('Yes, please!'), array('type' => 'submit')) ?><?php echo form::close() ?>
+<?php echo form::open(NULL, array('id' => 'logout')) ?><p><?php echo __('Are you sure you want to log out?') ?></p><?php echo form::button('logout', __('Yes, please!'), array('type' => 'submit')) ?><?php echo form::close() ?>
