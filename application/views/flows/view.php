@@ -47,17 +47,17 @@
 </div>
 
 <div id="streams-scrollable" class="streams">
-<ul class="timeline clearfix" style="width: <?php echo ceil((time::date2timestamp($flow->end_date)-time::date2timestamp($flow->start_date))/(30*60))*144 ?>px">
-	<?php $time = time::date2timestamp($flow->start_date)+1; ?>
-	<?php while ($time < time::date2timestamp($flow->end_date)): ?>
-		<li class="day"><?php echo date('l j \o\f F Y',$time) ?></li>
+<ul class="timeline clearfix" style="width: <?php echo ceil((time::date2timestamp($flow->end_date)-time::date2timestamp($flow->start_date)+24*3600)/(30*60))*144 ?>px">
+	<?php $time = time::date2timestamp($flow->start_date); ?>
+	<?php while ($time < time::date2timestamp($flow->end_date) + 24*3600): ?>
+		<li class="day"><?php echo  strftime('%A %e. %B - %Y',$time) ?></li>
 		<?php $time+= 24*3600; ?>
 	<? endwhile; ?>
 </ul>
-<ul class="timeline clearfix" style="width: <?php echo ceil((time::date2timestamp($flow->end_date)-time::date2timestamp($flow->start_date))/(30*60))*144 ?>px">
+<ul class="timeline clearfix" style="width: <?php echo ceil((time::date2timestamp($flow->end_date)-time::date2timestamp($flow->start_date)+24*3600)/(30*60))*144 ?>px">
 	<li class="halfhour">&nbsp;</li>
 	<?php $time = 1; ?>
-	<?php while ($time*3600 < time::date2timestamp($flow->end_date) - time::date2timestamp($flow->start_date)): ?>
+	<?php while ($time*3600 < time::date2timestamp($flow->end_date) + 24*3600 - time::date2timestamp($flow->start_date)): ?>
 		<li class="hour"><?php echo $time%24 ?></li>
 		<?php $time++; ?>
 	<? endwhile; ?>
@@ -65,16 +65,11 @@
 
 <?php foreach ($streams as $stream): ?>
 <?php $c = color::hex2RGB($stream->color); ?>
-<ul class="stream clearfix" data-stream='{"id": "<?php echo $stream->id ?>"}' style="width: <?php echo ceil((time::date2timestamp($flow->end_date)-time::date2timestamp($flow->start_date))/(30*60))*144 ?>px; background-color: rgba(<?php echo $c['r'].','.$c['g'].','.$c['b'].',0.3' ?>)">
+<ul class="stream clearfix" data-stream='{"id": "<?php echo $stream->id ?>"}' style="width: <?php echo ceil((time::date2timestamp($flow->end_date)-time::date2timestamp($flow->start_date) + 24*3600)/(30*60))*144 ?>px; background-color: rgba(<?php echo $c['r'].','.$c['g'].','.$c['b'].',0.3' ?>)">
 <?php foreach($stream->events->order_by('timestamp','ASC')->find_all() as $event): ?>
 	<?php $pos = ceil(($event->timestamp - time::date2timestamp($flow->start_date))/(60*15))*72 ?>
 	<li class="event<?= $event->id ?>" style="left: <?php echo $pos ?>px; width: <?php echo ceil($event->duration/30)*144 ?>px">
-		<div style="background-color: <?php echo $stream->color ?>">
-			<?php echo html::anchor(Route::get('event')->uri(array('flow'=>$flow->uri,'stream'=>$stream->uri,'event'=>$event->id)),$event->title) ?>
-			<?php foreach($event->tags->find_all() as $tag): ?>
-				<a href="<?php echo url::site($flow->uri.'/tags/'.$tag->id) ?>" class="tooltip marker tag<?php echo $tag->id ?>" title="<?php echo $tag->title ?>"></a>
-			<?php endforeach; ?>
-		</div>
+		<?php echo $event->render($stream->color,$flow->uri,$stream->uri,$taglist); ?>
 	</li>
 <?php endforeach; ?>
 </ul>
@@ -83,7 +78,7 @@
 </div>
 </div>
 <div style="z-index: 1; position: relative; top: -21px; border-width: 0 1px; border-style: solid; border-color: red; height: 20px; margin-left: 150px; overflow: hidden" class="clearfix">
-<?php $date_range = range(time::date2timestamp($flow->start_date),time::date2timestamp($flow->end_date)-1,24*3600); ?>
+<?php $date_range = range(time::date2timestamp($flow->start_date),time::date2timestamp($flow->end_date),24*3600); ?>
 <?php foreach($date_range as $i=>$day): ?>
 	<div style="float: left; width: <?php echo number_format(round(100/count($date_range),2),2) ?>%">
 		<div style="height: 20px; border-width: 0 1px; border-style: solid; border-color: transparent #660000 transparent red; text-align: center"> <?php echo strftime('%A',$day) ?> </div>
