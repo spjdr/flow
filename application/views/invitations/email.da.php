@@ -3,9 +3,9 @@
 
 <p style="margin: 0 0 .7em 0">Vi skriver til dig fordi, <b><?php echo html::chars($master->name) ?></b> har inviteret dig til at deltage i planlægningen af <b><?php echo html::chars($flow->title) ?></b> på &ldquo;<b><?php echo html::anchor('','Flow',array('style'=>'color: #3d647b;')) ?></b>&rdquo;. </p>
 
-<p style="margin: 0 0 .7em 0">Hvis du ikke allerede har en konto på &ldquo;Flow&rdquo;, kan du registrere dig ved at udfylde vores <?php echo html::anchor('account/register','registrerings-formular',array('style'=>'color: #3d647b;')) ?>.</p>
+<p style="margin: 0 0 .7em 0">Hvis du ikke allerede har en konto på &ldquo;Flow&rdquo;, kan du registrere dig ved at udfylde vores <?php echo html::anchor('register','registrerings-formular',array('style'=>'color: #3d647b;')) ?>.</p>
 
-<p style="margin: 0 0 .7em 0">Du accepterer invitationen ved først at <?php echo html::anchor('account/login','logge ind',array('style'=>'color: #3d647b;')) ?> og dernæst besøge linket: </p>
+<p style="margin: 0 0 .7em 0">Du accepterer invitationen ved først at <?php echo html::anchor('login','logge ind',array('style'=>'color: #3d647b;')) ?> og dernæst besøge linket: </p>
 
 <p class="link" style="margin: 0 0 .7em 15px"><?php echo html::anchor('join/'.$invitation_key,url::site('join/'.$invitation_key),array('style'=>'color: #3d647b;')) ?></p>
 
