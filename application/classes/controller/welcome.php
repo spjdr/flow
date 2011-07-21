@@ -1,14 +1,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Welcome extends Website_Controller {
+class Controller_Welcome extends Controller {
 
-	public function before()
+	public function action_view()
 	{
-		parent::
-	}
-
-	public function action_index()
-	{
+		foreach (ORM::factory('event')->find_all() as $event){
+			$event->save();
+		}
+		
+	
 		$this->request->response = 'hello, world!';
 	}
 
