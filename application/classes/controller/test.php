@@ -4,12 +4,9 @@ class Controller_Test extends Controller {
 
 	public function action_index()
 	{
-		/*foreach (ORM::factory('event')->find_all() as $event){
+		foreach (ORM::factory('event')->find_all() as $event){
 			$event->save();
 		}
-		
-	
-		$this->request->response = 'hello, world!';*/
 		
 		foreach(ORM::factory('flow')->find_all() as $flow) {
 			$flow->save();
