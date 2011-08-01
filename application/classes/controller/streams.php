@@ -45,28 +45,30 @@ class Controller_Streams extends Controller_Website {
   	
   	public function action_new()
 	{
-		$flow = ORM::factory('flow')->where('uri','=',Request::instance()->param('flow'))->find();
+		//$flow = ORM::factory('flow')->where('uri','=',Request::instance()->param('flow'))->find();
 		
 		$this->template->title = __('New stream');
 		$this->template->scripts = array('assets/colorpicker/syronex-colorpicker.js');
 		$this->template->styles = array('common'=>array('assets/colorpicker/syronex-colorpicker.css'=> 'screen, projection'));
 
 		$content = $this->template->content = new View('streams/new');
-		$content->flow = $flow;
+		$content->flow = $this->flow;
 
 		if ($_POST)
 		{	
 			$stream = ORM::factory('stream');
 			
 			$post = $_POST;
-			$post['flow_id'] = $flow->id;
+			$post['flow_id'] = $this->flow->id;
 			$post = $stream->validate_create($post);
 			
 			if ($post->check())
 			{
 				$stream->values($post);
 				$stream->save();
-
+				
+				$this->flow->save();
+				
 				#add success message
 				$this->session->set('message',Kohana::message('streams','new_success'));
  
@@ -107,7 +109,9 @@ class Controller_Streams extends Controller_Website {
 			{
 				$this->stream->values($post);
 				$this->stream->save();
-											
+		
+				$this->flow->save();
+			
 				$this->session->set('message',Kohana::message('streams','edit_success'));
 	 
 				#redirect to the stream
@@ -135,6 +139,8 @@ class Controller_Streams extends Controller_Website {
 		if ($_POST)
 		{	
 			$this->stream->delete();
+			
+			$this->flow->save();
 			
 			$this->session->set('message',Kohana::message('streams','delete_success'));
  

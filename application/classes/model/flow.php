@@ -185,6 +185,8 @@ class Model_Flow extends ORM {
 			parent::__set('secret',uniqid());
 		}
 		
+		parent::__set('updated_timestamp',time()); 
+		
 		parent::save();
 	}
 }

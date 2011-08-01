@@ -89,6 +89,8 @@ class Controller_Tags extends Controller_Website {
 				$tag->save();
 			}
 			
+			$this->flow->save();
+			
 			$this->session->set('message',Kohana::message('tags','new_success'));
  
 			#redirect to the flow
@@ -118,7 +120,9 @@ class Controller_Tags extends Controller_Website {
 			{
 				$tag->values($post);
 				$tag->save();
-											
+	
+				$this->flow->save();
+	
 				$this->session->set('message',Kohana::message('tags','edit_success'));
 	 
 				#redirect to the flow
@@ -145,12 +149,12 @@ class Controller_Tags extends Controller_Website {
 		$content->flow = $this->flow;
 		$content->tag = $tag;
 		
-		
-		
 		if ($_POST)
 		{	
 			$tag->delete();
-			
+		
+			$this->flow->save();
+		
 			$this->session->set('message',Kohana::message('tags','delete_success'));
  
 			#redirect to the flow

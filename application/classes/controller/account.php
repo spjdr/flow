@@ -227,7 +227,7 @@ class Controller_Account extends Controller_Website {
 		#If user already signed-in
 		if(Auth::instance()->logged_in()!= 0){
 			#redirect to the user account
-			Request::instance()->redirect('account/view');		
+			Request::instance()->redirect('@'.$this->user->username);		
 		}
  
  		$this->template->title = __('Login');

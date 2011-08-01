@@ -24,7 +24,7 @@
 <div class="clearfix">&nbsp;</div> <!-- height hack -->
 <ul>
 	<?php foreach($flow['streams'] as $sid => $stream): ?>
-		<li style="background-color: <?php echo $stream['color'] ?>; height: <?php echo 47*max($stream['ongoing'],2) ?>px;">
+		<li style="background-color: <?php echo $stream['color'] ?>; height: <?php echo 47*max($stream['ongoing'],2) ?>px;" data-stream='{"height": "<?php echo max($stream['ongoing'],2) ?>"}'>
 			<div>
 				<div class="stream-title">
 				<?php echo html::anchor($stream['uri'],$stream['title']) ?>
@@ -33,10 +33,11 @@
 				<?php echo count($stream['events']) ?> <?php echo __('events in total') ?>
 				</div>
 				<div class="stream-actions">
-					<a class="control event-prev stream-event-prev" data-stream='{"id": "<?php echo $sid ?>"}'></a>
-					<a class="control event-next stream-event-next" data-stream='{"id": "<?php echo $sid ?>"}'"></a>
-					<br/>
-					<?php if ($access['master'] || isset($access['streams'][$id])): ?>
+					<div class="stream-scroll">
+						<a class="control event-prev stream-event-prev" data-stream='{"id": "<?php echo $sid ?>"}'></a>
+						<a class="control event-next stream-event-next" data-stream='{"id": "<?php echo $sid ?>"}'></a>
+					</div>
+					<?php if ($access['master'] || isset($access['streams'][$sid])): ?>
 						<?php echo html::anchor($stream['uri'].'/new',__('Add event'),array('class'=>'new-event')) ?>
 					<? endif; ?>
 				</div>
@@ -73,7 +74,7 @@
 
 <!-- -->
 <?php foreach ($flow['streams'] as $sid => $stream): ?>
-<ul class="stream clearfix" data-stream='{"id": "<?php echo $sid ?>"}' style="width: <?php echo $width/2 ?>px; height: <?php echo 47*max($stream['ongoing'],2) ?>px; background-color: <?php echo $stream['alpha'] ?>">
+<ul class="stream clearfix" data-stream='{"id": "<?php echo $sid ?>"}' style="width: <?php echo $width/2 ?>px; height: <?php echo 47*max($stream['ongoing'],2) ?>px; background-color: <?php echo $stream['alpha'] ?>"  data-stream='{"height": "<?php echo max($stream['ongoing'],2) ?>"}'>
 <?php foreach($stream['events'] as $eid => $event): ?>
 	<?php $pos = $event['position']*$scale/4 ?>
 	<li class="event event<?php echo $eid ?> drag" style="top: <?php echo 47*($event['ongoing']-1) ?>px; left: <?php echo $pos ?>px; width: <?php echo $event['width']*$scale/4 ?>px" data-event='{"position": "<?php echo $event['position'] ?>", "width" : "<?php echo $event['width'] ?>"}'>

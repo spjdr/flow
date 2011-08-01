@@ -17,7 +17,7 @@ class Model_Event extends ORM {
 		),
 		'title' => array(
 			'not_empty' => NULL,
-			'min_length' => array(4),
+			'min_length' => array(1),
 			'max_length' => array(255)
 		),
 		'description' => array(
@@ -135,7 +135,7 @@ class Model_Event extends ORM {
 			parent::__set('created_timestamp',time());
 		}
 		
-		parent::__set('end_timestamp',parent::__get('timestamp')+parent::__get('duration'))*60;
+		parent::__set('end_timestamp',parent::__get('timestamp')+parent::__get('duration')*60);
 		
 		$tags = array();
 		foreach(ORM::factory('event',parent::__get('id'))->tags->find_all() as $tag) {
@@ -148,7 +148,6 @@ class Model_Event extends ORM {
 	
 	public function tag($format,$uri,$tags)
 	{
-
 		$cache = array_filter(explode(',',parent::__get('cache')));
 		
 		$output = '';
@@ -159,6 +158,14 @@ class Model_Event extends ORM {
 				foreach($tags as $tag) {
 					if (in_array($tag->id,$cache)) {
 						$output .= '<a href="'.$uri.' ?>/tags/'.$tag->id.'" class="tooltip marker tag'.$tag->id.' ?>" title="'.$tag->title.'"></a> ';
+					}
+				}
+			break;
+			case 'php':
+				$output = array();
+				foreach($tags as $tag) {
+					if (in_array($tag->id,$cache)) {
+						$output[] = $tag->title;
 					}
 				}
 			break;

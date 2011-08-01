@@ -67,6 +67,58 @@ class Controller_Flows extends Controller_Website {
 				break;
 			
 			break;
+			case 'json':
+				$flow = $this->flow; 
+				$tags = $this->flow->tags->find_all();
+				$streams = $this->flow->streams->find_all();
+				
+				$export['title'] = $flow->title;
+				$export['uri'] = $flow->uri;
+				$export['updated'] = strftime('%FT%T%z',$flow->updated_timestamp);
+				$export['time']['start'] = strftime('%FT00:00:00%z',$flow->start_timestamp);
+				$export['time']['end'] = strftime('%FT00:00:00%z',$flow->end_timestamp);
+				$export['description'] = $flow->description;
+				$export['tags'] = array();
+				foreach ($tags as $tag) {
+					$export['tags'][] = $tag->title;
+				}
+				$export['streams'] = array();
+				foreach ($streams as $stream) {
+					$s = array();
+					$s['title'] = $stream->title;
+					$s['id'] = $stream->id;
+					$s['color'] = $stream->color;
+					$s['description'] = $stream->description;
+					foreach ($stream->events->order_by('timestamp','ASC')->find_all() as $event) {
+						$e = array();
+						$e['title'] = $event->title;
+						$e['id'] = $event->id;
+						$e['subtitle'] = '';
+						$e['time']['start'] = strftime('%FT%T%z',$event->timestamp);
+						$e['time']['end'] = strftime('%FT%T%z',$event->end_timestamp);
+						$e['description'] = $event->description;
+						$e['location'] = array();
+						$e['location']['description'] = $event->location;
+						$e['location']['lattitude'] = 'N56 10.352';
+						$e['location']['longitude'] = 'E010 11.825';
+						$e['organiser']['name'] = $flow->title;
+						$e['organiser']['phone'] = '+4588888888';
+						$e['organiser']['email'] = 'flow@spjdr.dk';
+						$e['organiser']['web'] = 'http://www.spjdr.dk/flow';
+						$e['photos'] = array();
+						if ($event->photo != '') {
+							$event['photos'][] = $event->photo;
+						}
+						$e['tags'] = $event->tag('php',$flow->uri,$tags);
+						$s['events'][] = $e;
+					}
+					$export['streams'][] = $s;
+				}
+				header("Content-Type:text/json");  
+				header('Content-Disposition: attachment; filename="'.$this->flow->uri.'.json"');				
+				$this->auto_render = false;
+				echo json_encode($export);				
+			break;
 		}
 	}
 	

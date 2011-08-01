@@ -98,7 +98,7 @@ class Helper_Timeline {
 					'uri' => $flow->uri.'/'.$stream->uri.'/'.$event->id,
 					'timestamp' => $event->timestamp,
 					'duration' => $event->duration,
-					'end_timestamp' => $event->end_timestamp,
+					'end_timestamp' => $end_timestamp,
 					'position' => ceil(($event->timestamp - time::date2timestamp($flow->start_date))/(60*15)),
 					'width' => ceil($event->duration/15),
 					'body' => $event->tag('html',$out['uri'],$tags).'<p>'.text::limit_chars($event->description,ceil($event->duration/(3))).'</p>',

@@ -69,6 +69,8 @@ class Controller_Events extends Controller_Website {
 					$event->add('tags',ORM::factory('tag',$id));
 				}
 				
+				$this->flow->save();
+				
 				#add success message
 				$this->session->set('message',Kohana::message('events','new_success'));
  
@@ -139,6 +141,10 @@ class Controller_Events extends Controller_Website {
 					$event->add('tags',ORM::factory('tag',$id));
 				}		
 				
+				$event->save();
+				
+				$this->flow->save();
+				
 				$this->session->set('message',Kohana::message('events','edit_success'));
 	 
 				#redirect to the stream
@@ -169,6 +175,8 @@ class Controller_Events extends Controller_Website {
 		if ($_POST)
 		{	
 			$event->delete();
+			
+			$this->flow->save();
 			
 			$this->session->set('message',Kohana::message('events','delete_success'));
  
